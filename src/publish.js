@@ -6,16 +6,19 @@ define(['sprout/util', 'sprout/dom', 'sprout/pubsub'], function (_, $, pubsub) {
 
 	$(function () {
 		$('body').on('click.publish.data-api', '[data-publish]', function (e) {
-			var message = $(this).attr('data-publish'),
+			var $this = $(this),
+				message = $this.attr('data-publish'),
 				info;
 
-			if (message !== "") {
-				e.preventDefault();
-
-				info = $(this).attr('data-publish-info');
-
-				pubsub.publish(message, _.isString(info) ? JSON.parse(info) : null, this);
+			if ($this.is('.disabled, :disabled') || message === "") {
+				return;
 			}
+
+			e.preventDefault();
+
+			info = $(this).attr('data-publish-info');
+
+			pubsub.publish(message, _.isString(info) ? JSON.parse(info) : null, this);
 		});
 	});
 });
