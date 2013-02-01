@@ -8,17 +8,18 @@ define(['sprout/dom', 'sprout/router'], function ($, router) {
 		$('body').on('click.url.data-api', '[data-url]', function (e) {
 			var $this = $(this),
 				url = $this.attr('data-url'),
-				target;
+				target, href;
 
 			if (url !== "") {
 				target = $this.attr('data-target');
+				href = $this.attr('href');
 
-				if (!target || $(target).length > 0) {
+				if ((!target || $(target).length > 0) && router.defaultRouter.match(href).length > 0) {
 					e.preventDefault();
 					router.defaultRouter.navigate(url);
 				}
 				else {
-					document.location = $this.attr('href') || url;
+					document.location = href || url;
 				}
 			}
 		});
