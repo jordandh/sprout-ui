@@ -8,7 +8,7 @@ define(['sprout/util', 'sprout/dom', 'sprout/pubsub'], function (_, $, pubsub) {
 		$('body').on('click.publish.data-api', '[data-publish]', function (e) {
 			var $this = $(this),
 				message = $this.attr('data-publish'),
-				info;
+				info = {};
 
 			if ($this.is('.disabled, :disabled') || message === "") {
 				return;
@@ -16,9 +16,13 @@ define(['sprout/util', 'sprout/dom', 'sprout/pubsub'], function (_, $, pubsub) {
 
 			e.preventDefault();
 
-			info = $(this).attr('data-publish-info');
+			_.each($this.attrs(), function (value, name) {
+				if (_.startsWith(name, 'data-publish-')) {
+					info[_.strRight(name, 'data-publish-')] = value;
+				}
+			});
 
-			pubsub.publish(message, _.isString(info) ? JSON.parse(info) : null, this);
+			pubsub.publish(message, info, this);
 		});
 	});
 });

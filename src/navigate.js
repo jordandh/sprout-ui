@@ -1,7 +1,7 @@
  /*
   * Click url navigation
   */
-define(['sprout/dom', 'sprout/router'], function ($, router) {
+define(['sprout/dom', 'sprout/router', 'sprout/pubsub'], function ($, router, pubsub) {
 	'use strict';
 
 	$(function () {
@@ -16,7 +16,11 @@ define(['sprout/dom', 'sprout/router'], function ($, router) {
 
 				if ((!target || $(target).length > 0) && router.defaultRouter.match(href).length > 0) {
 					e.preventDefault();
-					router.defaultRouter.navigate(url);
+					if (router.defaultRouter.navigate(url)) {
+						pubsub.publish('data-url-navigate', {
+							url: url
+						});
+					}
 				}
 				else {
 					document.location = href || url;
