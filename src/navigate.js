@@ -23,7 +23,7 @@ define(['sprout/dom', 'sprout/router', 'sprout/pubsub'], function ($, router, pu
 					}
 				}
 				else {
-					document.location = href || url;
+					this.href = href || url;
 				}
 			}
 		});
