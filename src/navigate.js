@@ -8,7 +8,7 @@ define(['sprout/dom', 'sprout/router', 'sprout/pubsub'], function ($, router, pu
 		$('body').on('click.url.data-api', '[data-url]', function (e) {
 			var $this = $(this),
 				url = $this.attr('data-url'),
-				target, href;
+				target, href, title;
 
 			if (url !== "") {
 				target = $this.attr('data-target');
@@ -16,9 +16,13 @@ define(['sprout/dom', 'sprout/router', 'sprout/pubsub'], function ($, router, pu
 
 				if ((!target || $(target).length > 0) && router.defaultRouter.match(href).length > 0) {
 					e.preventDefault();
-					if (router.defaultRouter.navigate(url)) {
+
+					title = $this.attr('data-title') || $(target).attr('data-title');
+
+					if (router.defaultRouter.navigate(url, title)) {
 						pubsub.publish('data-url-navigate', {
-							url: url
+							url: url,
+							title: title
 						});
 					}
 				}
