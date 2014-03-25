@@ -1,0 +1,26 @@
+{
+  "name": "sprout-ui",
+  "version": "1.0.0",
+  "homepage": "https://github.com/jordandh/sprout-ui",
+  "authors": [
+    "Jordan Harrison <jordandh@gmail.com>"
+  ],
+  "description": "Common UI modules to simplify building webpages.",
+  "moduleType": [
+    "amd"
+  ],
+  "keywords": [
+    "javascript"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "sprout": "~1.0.0"
+  }
+}
